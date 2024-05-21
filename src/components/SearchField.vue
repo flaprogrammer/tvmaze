@@ -9,7 +9,7 @@
     />
     <button
       @click="emitSearch"
-      class="absolute right-0 top-0 mt-[1px] bg-blue-500 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      class="absolute right-0 top-0 mt-[1px] bg-[#fd3a6a] text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
     >
       Search
     </button>

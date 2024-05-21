@@ -1,7 +1,13 @@
 <template>
-  <div class="header flex flex-row-reverse">
+  <header class="flex justify-between items-center mb-5">
+    <router-link :to="`/`">
+      <div class="flex items-center text-[#fd3a6a]">
+        <img src="/tv.png" alt="" class="h-[70px]" />
+        <span class="text-xl font-bold">TV MAZE</span>
+      </div>
+    </router-link>
     <SearchField @onSearch="onSearch" class="w-full md:max-w-[500px]" />
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
