@@ -1,16 +1,3 @@
-// import { ref, computed } from 'vue'
-// import { defineStore } from 'pinia'
-
-// export const useCounterStore = defineStore('counter', () => {
-//   const count = ref(0)
-//   const doubleCount = computed(() => count.value * 2)
-//   function increment() {
-//     count.value++
-//   }
-
-//   return { count, doubleCount, increment }
-// })
-
 import { createPinia, defineStore } from 'pinia'
 
 const pinia = createPinia()
@@ -27,6 +14,15 @@ export const useShowStore = defineStore('show', {
         const response = await fetch('http://api.tvmaze.com/shows')
         const data = await response.json()
         this.shows = data
+        // get all genres from this.shows
+        this.genres = Array.from(
+          new Set(
+            this.shows
+              .map((show) => show.genres)
+              .flat()
+              .filter((genre) => genre)
+          )
+        )
       } catch (error) {
         console.error('Error fetching shows:', error)
       }
