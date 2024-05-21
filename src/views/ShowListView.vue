@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 class="text-3xl font-bold mb-4">TV Shows</h1>
     <ShowListHorizontal
       v-for="genre in genres"
       :key="genre"

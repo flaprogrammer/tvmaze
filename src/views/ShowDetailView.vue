@@ -20,20 +20,29 @@
 
 <script setup lang="ts">
 import { useShowStore } from '@/stores/show'
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import Rating from '@/components/Rating.vue'
 
 const store = useShowStore()
 const route = useRoute()
 
-const showId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
+const showId = computed(() =>
+  Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
+)
 
-const show = computed(() => store.shows[showId])
+const show = computed(() => store.shows[showId.value])
 
 onMounted(() => {
-  store.fetchShowById(showId)
+  store.fetchShowById(showId.value)
 })
+
+watch(
+  () => route.params.id,
+  (newId) => {
+    store.fetchShowById(Array.isArray(newId) ? newId[0] : newId)
+  }
+)
 </script>
 
 <style scoped></style>

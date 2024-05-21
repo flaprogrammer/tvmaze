@@ -1,7 +1,5 @@
 import type { Show } from '@/types'
-import { createPinia, defineStore } from 'pinia'
-
-const pinia = createPinia()
+import { defineStore } from 'pinia'
 
 export const useShowStore = defineStore('show', {
   state: () => ({
@@ -64,8 +62,22 @@ export const useShowStore = defineStore('show', {
       } catch (error) {
         console.error('Error fetching show by id:', error)
       }
+    },
+    async searchSingleShow(query: string) {
+      try {
+        const response = await fetch(`http://api.tvmaze.com/singlesearch/shows?q=${query}`)
+        const data: Show = await response.json()
+        if (!data) {
+          throw new Error('No show found')
+        }
+        this.shows = {
+          ...this.shows,
+          [data.id]: data
+        }
+        return data.id
+      } catch (error) {
+        console.error('Error fetching single show:', error)
+      }
     }
   }
 })
-
-// export default pinia
