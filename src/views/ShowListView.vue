@@ -6,6 +6,7 @@
       :key="genre"
       :genre="genre"
       :allShows="shows"
+      @onLoadMore="fetchNextPage"
       class="mb-8"
     />
   </div>
@@ -22,7 +23,11 @@ onMounted(() => {
   store.fetchShows()
 })
 
-const shows = computed(() => store.shows)
+const fetchNextPage = () => {
+  store.fetchNextPage()
+}
+
+const shows = computed(() => Object.values(store.shows))
 const genres = computed(() => store.genres)
 </script>
 

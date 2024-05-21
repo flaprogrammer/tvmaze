@@ -4,7 +4,7 @@
   >
     <img class="rounded-lg w-full" :src="show.image?.medium" :alt="show.name" />
     <div
-      class="absolute bottom-0 left-0 w-full p-4 bg-black bg-opacity-50 text-white text-center rounded-b-lg transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"
+      class="absolute bottom-0 left-0 w-full p-3 bg-black bg-opacity-50 text-white text-center rounded-b-lg transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"
     >
       <h3 class="text-xl font-bold">{{ show.name }}</h3>
       <p class="text-sm">{{ show.genres.join(', ') }}</p>

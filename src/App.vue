@@ -13,9 +13,3 @@ import { RouterLink, RouterView } from 'vue-router'
 
   <RouterView />
 </template>
-
-<style>
-body {
-  font-family: 'Roboto', sans-serif;
-}
-</style>

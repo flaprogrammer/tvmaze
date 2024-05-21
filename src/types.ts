@@ -9,4 +9,6 @@ export type Show = {
     medium: string
     original: string
   }
+  summary: string
+  premiered: string
 }
