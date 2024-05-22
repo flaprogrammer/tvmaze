@@ -30,5 +30,8 @@
 
 ## Installation
 
+Node version - v20
+NPM - v10.5
+
 - `npm install`
 - `npm run dev`
