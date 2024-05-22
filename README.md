@@ -1,45 +1,34 @@
-# tvmaze
+# TV MAZE App
 
-This template should help get you started developing with Vue 3 in Vite.
+<img src="https://lenarfattakhov.com/assets/tvmaze/2.png" width="700px" />
 
-## Recommended IDE Setup
+<img src="https://lenarfattakhov.com/assets/tvmaze/1.png" width="700px" />
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Features
 
-## Type Support for `.vue` Imports in TS
+- **Browse Shows by Genre**: Users can view all shows categorized under genres.
+- **Show Details**
+- **Load More**: Shows are loaded on-demand as the user clicks "Load More", enhancing performance and user experience.
+- **Search Functionality**: Users can search for shows by their names.
+- **Responsive Design**: Compatible with desktop and mobile devices.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Technologies Used
 
-## Customize configuration
+- **Vue3** with Composition API
+- **Tailwind CSS** for styling
+- **Vitest** for unit tests
+- **Pinia** for state management
+- **vue-router** for routing
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Solutions
 
-## Project Setup
+- I tried to keep components dumb, making it easier to maintain and test them
+- Added unit tests to components which contain any logic and to the store
+- For simplicity search uses /singlesearch endpoint to find a single show which matches the query the most
+- Used Pinia to store all the shows data
+- tvmaze.com only returns 250 shows in a page. And there are 305 pages, therefore you need to click on "Load More" button to load the next page
 
-```sh
-npm install
-```
+## Installation
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- `npm install`
+- `npm run dev`
