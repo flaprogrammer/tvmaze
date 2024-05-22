@@ -6,15 +6,16 @@
         v-for="show in filteredShows"
         :key="show.id"
         :to="`/show/${show.id}`"
-        class="flex-shrink-0 w-1/4 md:w-1/5 lg:w-1/6"
+        class="flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6"
       >
         <ShowCard :show="show" />
       </router-link>
       <div
         @click="$emit('onLoadMore')"
-        class="flex flex-shrink-0 w-1/4 md:w-1/5 lg:w-1/6 justify-center items-center bg-gray-100 hover:bg-gray-300 rounded-lg cursor-pointer font-bold"
+        class="flex flex-shrink-0 w-1/4 md:w-1/5 lg:w-1/6 justify-center items-center bg-gray-100 hover:bg-gray-300 rounded-lg cursor-pointer"
       >
-        Load More
+        <Spinner v-if="isLoadingMore" />
+        <span v-else class="font-bold">Load More</span>
       </div>
     </div>
   </div>
@@ -24,10 +25,12 @@
 import { defineProps, computed } from 'vue'
 import type { Show } from '../types'
 import ShowCard from './ShowCard.vue'
+import Spinner from './Spinner.vue'
 
 const props = defineProps<{
   genre: string
   allShows: Show[]
+  isLoadingMore: booleanп
 }>()
 
 defineEmits(['onLoadMore'])

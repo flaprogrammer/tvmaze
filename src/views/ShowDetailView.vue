@@ -13,8 +13,8 @@
       </div>
     </div>
   </div>
-  <div v-else class="container mx-auto p-4">
-    <p>Loading...</p>
+  <div v-else class="flex w-full justify-center pt-[100px]">
+    <Spinner />
   </div>
 </template>
 
@@ -23,6 +23,7 @@ import { useShowStore } from '@/stores/show'
 import { onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import Rating from '@/components/Rating.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const store = useShowStore()
 const route = useRoute()

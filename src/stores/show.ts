@@ -1,5 +1,6 @@
 import type { Show } from '@/types'
 import { defineStore } from 'pinia'
+import * as api from '@/api'
 
 export const useShowStore = defineStore('show', {
   state: () => ({
@@ -10,9 +11,7 @@ export const useShowStore = defineStore('show', {
   actions: {
     async fetchShows() {
       try {
-        this.currentPage = 0
-        const response = await fetch('http://api.tvmaze.com/shows')
-        const data: Show[] = await response.json()
+        const data = await api.fetchShows()
         this.shows = {
           ...data.reduce(
             (acc, show) => {
@@ -38,8 +37,7 @@ export const useShowStore = defineStore('show', {
     async fetchNextPage() {
       this.currentPage++
       try {
-        const response = await fetch(`http://api.tvmaze.com/shows?page=${this.currentPage}`)
-        const data: Show[] = await response.json()
+        const data = await api.fetchNextPage(this.currentPage)
         this.shows = {
           ...this.shows,
           ...data.reduce(
@@ -56,8 +54,7 @@ export const useShowStore = defineStore('show', {
     },
     async fetchShowById(id: string) {
       try {
-        const response = await fetch(`http://api.tvmaze.com/shows/${id}`)
-        const data: Show = await response.json()
+        const data = await api.fetchShowById(id)
         this.shows[id] = data
       } catch (error) {
         console.error('Error fetching show by id:', error)
@@ -65,8 +62,7 @@ export const useShowStore = defineStore('show', {
     },
     async searchSingleShow(query: string) {
       try {
-        const response = await fetch(`http://api.tvmaze.com/singlesearch/shows?q=${query}`)
-        const data: Show = await response.json()
+        const data = await api.fetchSingleShowByQuery(query)
         if (!data) {
           throw new Error('No show found')
         }

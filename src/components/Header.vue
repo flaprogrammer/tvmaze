@@ -1,5 +1,5 @@
 <template>
-  <header class="flex justify-between items-center mb-5">
+  <header class="flex justify-between items-center mb-5 flex-wrap">
     <router-link :to="`/`">
       <div class="flex items-center text-[#fd3a6a]">
         <img src="/tv.png" alt="" class="h-[70px]" />
