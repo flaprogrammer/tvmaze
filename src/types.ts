@@ -11,4 +11,5 @@ export type Show = {
   }
   summary: string
   premiered: string
+  status: string | number
 }

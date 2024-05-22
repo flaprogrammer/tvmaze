@@ -6,7 +6,7 @@
         <span class="text-xl font-bold">TV MAZE</span>
       </div>
     </router-link>
-    <SearchField @onSearch="onSearch" class="w-full md:max-w-[500px]" />
+    <SearchField @onSearch="onSearch" class="w-full md:max-w-[500px]" :errorMessage="error" />
   </header>
 </template>
 
@@ -14,14 +14,22 @@
 import { useRouter } from 'vue-router'
 import { useShowStore } from '@/stores/show'
 import SearchField from './SearchField.vue'
+import { ref } from 'vue'
 
 const store = useShowStore()
 const router = useRouter()
 
+const error = ref(null)
+
 const onSearch = async (value: string) => {
-  const id = await store.searchSingleShow(value)
-  if (id) {
-    router.push(`/show/${id}`)
+  error.value = null
+  try {
+    const id = await store.searchSingleShow(value)
+    if (id) {
+      router.push(`/show/${id}`)
+    }
+  } catch (e: any) {
+    error.value = e?.message || 'An error occurred'
   }
 }
 </script>

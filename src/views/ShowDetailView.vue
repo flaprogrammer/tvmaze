@@ -13,20 +13,24 @@
       </div>
     </div>
   </div>
-  <div v-else class="flex w-full justify-center pt-[100px]">
+  <div v-if="isLoading" class="flex w-full justify-center pt-[100px]">
     <Spinner />
   </div>
+  <ErrorMessage v-if="error">{{ error }}</ErrorMessage>
 </template>
 
 <script setup lang="ts">
 import { useShowStore } from '@/stores/show'
-import { onMounted, computed, watch } from 'vue'
+import { onMounted, computed, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Rating from '@/components/Rating.vue'
 import Spinner from '@/components/Spinner.vue'
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 const store = useShowStore()
 const route = useRoute()
+const isLoading = ref(false)
+const error = ref(null)
 
 const showId = computed(() =>
   Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
@@ -34,14 +38,31 @@ const showId = computed(() =>
 
 const show = computed(() => store.shows[showId.value])
 
-onMounted(() => {
-  store.fetchShowById(showId.value)
+onMounted(async () => {
+  isLoading.value = true
+  try {
+    await store.fetchShowById(showId.value)
+    error.value = null
+  } catch (err: any) {
+    error.value = err?.message || 'An error occurred'
+  } finally {
+    isLoading.value = false
+  }
 })
 
 watch(
   () => route.params.id,
   (newId) => {
-    store.fetchShowById(Array.isArray(newId) ? newId[0] : newId)
+    error.value = null
+    isLoading.value = true
+    try {
+      store.fetchShowById(Array.isArray(newId) ? newId[0] : newId)
+      error.value = null
+    } catch (err: any) {
+      error.value = err?.message || 'An error occurred'
+    } finally {
+      isLoading.value = false
+    }
   }
 )
 </script>

@@ -46,27 +46,22 @@ export const useShowStore = defineStore('show', {
       this.currentPage++
     },
     async fetchShowById(id: string) {
-      try {
-        const data = await api.fetchShowById(id)
-        this.shows[id] = data
-      } catch (error) {
-        console.error('Error fetching show by id:', error)
+      const data = await api.fetchShowById(id)
+      if (data.status === 404) {
+        throw new Error('Show not found')
       }
+      this.shows[id] = data
     },
     async searchSingleShow(query: string) {
-      try {
-        const data = await api.fetchSingleShowByQuery(query)
-        if (!data) {
-          throw new Error('No show found')
-        }
-        this.shows = {
-          ...this.shows,
-          [data.id]: data
-        }
-        return data.id
-      } catch (error) {
-        console.error('Error fetching single show:', error)
+      const data = await api.fetchSingleShowByQuery(query)
+      if (!data) {
+        throw new Error('No show found')
       }
+      this.shows = {
+        ...this.shows,
+        [data.id]: data
+      }
+      return data.id
     }
   }
 })
