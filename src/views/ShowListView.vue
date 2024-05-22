@@ -29,6 +29,9 @@ const isLoadingNextPage = ref(false)
 const error = ref(null)
 
 onMounted(async () => {
+  // Don't fetch shows if already fetched
+  if (store.currentPage) return
+
   isLoading.value = true
   try {
     await store.fetchShows()

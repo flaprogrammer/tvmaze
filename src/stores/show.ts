@@ -10,47 +10,40 @@ export const useShowStore = defineStore('show', {
   }),
   actions: {
     async fetchShows() {
-      try {
-        const data = await api.fetchShows()
-        this.shows = {
-          ...data.reduce(
-            (acc, show) => {
-              acc[show.id] = show
-              return acc
-            },
-            {} as Record<string, Show>
-          )
-        }
-        // get all genres from this.shows
-        this.genres = Array.from(
-          new Set(
-            data
-              .map((show: Show) => show.genres)
-              .flat()
-              .filter((genre: string) => genre)
-          )
+      const data = await api.fetchShows()
+      this.shows = {
+        ...data.reduce(
+          (acc, show) => {
+            acc[show.id] = show
+            return acc
+          },
+          {} as Record<string, Show>
         )
-      } catch (error) {
-        console.error('Error fetching shows:', error)
       }
+      // get all genres from this.shows
+      this.genres = Array.from(
+        new Set(
+          data
+            .map((show: Show) => show.genres)
+            .flat()
+            .filter((genre: string) => genre)
+        )
+      )
+      this.currentPage++
     },
     async fetchNextPage() {
-      this.currentPage++
-      try {
-        const data = await api.fetchNextPage(this.currentPage)
-        this.shows = {
-          ...this.shows,
-          ...data.reduce(
-            (acc, show) => {
-              acc[show.id] = show
-              return acc
-            },
-            {} as Record<string, Show>
-          )
-        }
-      } catch (error) {
-        console.error('Error fetching next page:', error)
+      const data = await api.fetchNextPage(this.currentPage)
+      this.shows = {
+        ...this.shows,
+        ...data.reduce(
+          (acc, show) => {
+            acc[show.id] = show
+            return acc
+          },
+          {} as Record<string, Show>
+        )
       }
+      this.currentPage++
     },
     async fetchShowById(id: string) {
       try {

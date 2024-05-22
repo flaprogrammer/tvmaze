@@ -30,7 +30,7 @@ import Spinner from './Spinner.vue'
 const props = defineProps<{
   genre: string
   allShows: Show[]
-  isLoadingMore: booleanп
+  isLoadingMore: boolean
 }>()
 
 defineEmits(['onLoadMore'])
