@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useShowStore } from './show'
 import * as api from '@/api'
@@ -17,7 +17,7 @@ describe('ShowStore', () => {
 
   it('fetches shows and updates state correctly', async () => {
     const shows = [{ id: '1', genres: ['Drama'], rating: { average: 8.0 } }]
-    api.fetchShows.mockResolvedValue(shows)
+    ;(api.fetchShows as Mock).mockResolvedValue(shows)
     const store = useShowStore()
     await store.fetchShows()
 
@@ -28,7 +28,7 @@ describe('ShowStore', () => {
 
   it('fetches next page of shows and increments currentPage', async () => {
     const additionalShows = [{ id: '2', genres: ['Comedy'], rating: { average: 7.5 } }]
-    api.fetchNextPage.mockResolvedValue(additionalShows)
+    ;(api.fetchNextPage as Mock).mockResolvedValue(additionalShows)
     const store = useShowStore()
     await store.fetchShows() // Assume this sets currentPage to 1
     await store.fetchNextPage()
@@ -39,7 +39,8 @@ describe('ShowStore', () => {
 
   it('fetches a show by ID and handles not found error', async () => {
     const errorResponse = { status: 404 }
-    api.fetchShowById.mockResolvedValue(errorResponse)
+
+    ;(api.fetchShowById as Mock).mockResolvedValue(errorResponse)
     const store = useShowStore()
     try {
       await store.fetchShowById('invalid-id')
@@ -50,7 +51,7 @@ describe('ShowStore', () => {
 
   it('searches for a single show and returns its ID', async () => {
     const showData = { id: '3', name: 'Example Show', genres: ['Action'], rating: { average: 9.0 } }
-    api.fetchSingleShowByQuery.mockResolvedValue(showData)
+    ;(api.fetchSingleShowByQuery as Mock).mockResolvedValue(showData)
     const store = useShowStore()
     const resultId = await store.searchSingleShow('Example Show')
 

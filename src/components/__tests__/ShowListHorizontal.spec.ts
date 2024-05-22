@@ -4,13 +4,14 @@ import ShowListHorizontal from '../ShowListHorizontal.vue'
 import ShowCard from '../ShowCard.vue'
 import Spinner from '../Spinner.vue'
 import { RouterLinkStub } from '@vue/test-utils'
+import type { Show } from '@/types'
 
 describe('ShowListComponent', () => {
   it('renders genre title and show cards correctly', () => {
     const shows = [
       { id: 1, genres: ['Drama'], rating: { average: 8.2 } },
       { id: 2, genres: ['Drama'], rating: { average: 9.1 } }
-    ]
+    ] as Show[]
 
     const wrapper = mount(ShowListHorizontal, {
       props: {
@@ -34,7 +35,7 @@ describe('ShowListComponent', () => {
     const shows = [
       { id: 1, genres: ['Drama'], rating: { average: 8.2 } },
       { id: 2, genres: ['Drama'], rating: { average: 9.1 } }
-    ]
+    ] as Show[]
 
     const wrapper = mount(ShowListHorizontal, {
       props: {
